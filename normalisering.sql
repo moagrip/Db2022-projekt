@@ -36,6 +36,8 @@ INSERT INTO Student (StudentID, FirstName, LastName)
 SELECT DISTINCT Id, SUBSTRING_INDEX(Name, ' ', 1), SUBSTRING_INDEX(Name, ' ', -1) 
 FROM UNF;
 
+drop table if exists School; 
+
 create table School (
 	SchoolId int not null auto_increment,
 	Name varchar(255) not null,
@@ -43,3 +45,10 @@ create table School (
 	primary key (SchoolId)
 );
 insert into School(Name, City) select distinct School as Name, City from UNF;
+
+
+drop table if exists StudentSchool;
+create table StudentSchool as select Id as StudentId, SchoolId from UNF join School on UNF.School = School.Name; 
+alter table StudentSchool modify column StudentId INT;
+alter table StudentSchool add primary key (StudentId, SchoolId);
+
