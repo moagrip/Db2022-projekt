@@ -35,3 +35,11 @@ CREATE TABLE Student (
 INSERT INTO Student (StudentID, FirstName, LastName) 
 SELECT DISTINCT Id, SUBSTRING_INDEX(Name, ' ', 1), SUBSTRING_INDEX(Name, ' ', -1) 
 FROM UNF;
+
+create table School (
+	SchoolId int not null auto_increment,
+	Name varchar(255) not null,
+	City varchar(255) not null,
+	primary key (SchoolId)
+);
+insert into School(Name, City) select distinct School as Name, City from UNF;
