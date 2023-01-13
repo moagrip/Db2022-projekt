@@ -99,3 +99,18 @@ $ docker cp denormalized-data.csv iths-mysql:/var/lib/mysql-files
 docker exec -i iths-mysql mysql -uroot -proot < normalisering.sql
 ```
 
+## Exploring the DB
+1:
+```bash
+$ docker exec -it iths-mysql bash
+```
+2:
+```bash
+$ mysql -uiths -piths
+```
+3: Write the following SQL commands when you are in the DB
+```bash
+use iths;
+show tables;
+```
+You can now browse the DB freely. 
