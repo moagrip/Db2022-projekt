@@ -63,11 +63,11 @@ Install
 ## Setting up the DB
 1: Pull the latest Mysql image
 ``` bash
-$ docker pull mysql/mysql-server:latest
+docker pull mysql/mysql-server:latest
 ```
 2: Create a Mysql container
 ``` bash
-$ docker run --name iths-mysql\
+docker run --name iths-mysql\
            -e MYSQL_ROOT_PASSWORD=root\
            -e MYSQL_USER=iths\
            -e MYSQL_PASSWORD=iths\
@@ -78,21 +78,21 @@ $ docker run --name iths-mysql\
 ```
 3: Run the Mysql container
 ``` bash
-$ docker start iths-mysql
+docker start iths-mysql
 ```
 
 ## Populate and normalize the DB
 1: Clone this project
 ```bash
-$ git clone https://github.com/moagrip/db2022-projekt.git
+git clone https://github.com/moagrip/db2022-projekt.git
 ```
 2: In the project, run the following command
 ```bash
-$ docker exec -i iths-mysql mysql -uroot -proot <<< "GRANT ALL ON iths.* TO 'iths'@'%'"
+docker exec -i iths-mysql mysql -uroot -proot <<< "GRANT ALL ON iths.* TO 'iths'@'%'"
 ```
 3: Upload data file to the Mysql container 
 ```bash
-$ docker cp denormalized-data.csv iths-mysql:/var/lib/mysql-files
+docker cp denormalized-data.csv iths-mysql:/var/lib/mysql-files
 ```
 4: Run the SQL script for populating and normalizing data
 ```bash
@@ -102,11 +102,11 @@ docker exec -i iths-mysql mysql -uroot -proot < normalisering.sql
 ## Exploring the DB
 1: Open bash in the Mysql container
 ```bash
-$ docker exec -it iths-mysql bash
+docker exec -it iths-mysql bash
 ```
 2: Open Mysql while inside the container
 ```bash
-$ mysql -uiths -piths
+mysql -uiths -piths
 ```
 3: Write the following SQL commands when you are in the DB
 ```bash
@@ -117,5 +117,5 @@ You can now browse the DB freely.
 
 ## Run CRUD test
 ```bash
-$ gradle check
+gradle check
 ``` 
