@@ -113,4 +113,9 @@ $ mysql -uiths -piths
 use iths;
 show tables;
 ```
-You can now browse the DB freely. 
+You can now browse the DB freely.
+
+## Run CRUD test
+```bash
+$ gradle check
+``` 
