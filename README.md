@@ -61,11 +61,11 @@ Install
 - Java
 
 ## Setting up the DB
-1:
+1: Pull the latest Mysql image
 ``` bash
 $ docker pull mysql/mysql-server:latest
 ```
-2: 
+2: Create a Mysql container
 ``` bash
 $ docker run --name iths-mysql\
            -e MYSQL_ROOT_PASSWORD=root\
@@ -76,13 +76,13 @@ $ docker run --name iths-mysql\
            --tmpfs /var/lib/mysql\
            -d mysql/mysql-server:latest
 ```
-3:
+3: Run the Mysql container
 ``` bash
 $ docker start iths-mysql
 ```
 
 ## Populate and normalize the DB
-1: 
+1: Clone this project
 ```bash
 $ git clone https://github.com/moagrip/db2022-projekt.git
 ```
@@ -90,21 +90,21 @@ $ git clone https://github.com/moagrip/db2022-projekt.git
 ```bash
 $ docker exec -i iths-mysql mysql -uroot -proot <<< "GRANT ALL ON iths.* TO 'iths'@'%'"
 ```
-3: 
+3: Upload data file to the Mysql container 
 ```bash
 $ docker cp denormalized-data.csv iths-mysql:/var/lib/mysql-files
 ```
-4: 
+4: Run the SQL script for populating and normalizing data
 ```bash
 docker exec -i iths-mysql mysql -uroot -proot < normalisering.sql
 ```
 
 ## Exploring the DB
-1:
+1: Open bash in the Mysql container
 ```bash
 $ docker exec -it iths-mysql bash
 ```
-2:
+2: Open Mysql while inside the container
 ```bash
 $ mysql -uiths -piths
 ```
