@@ -68,22 +68,22 @@ WHERE MobilePhone2 IS NOT NULL AND MobilePhone2 != '';
 DROP VIEW IF EXISTS PhoneList;
 CREATE VIEW PhoneList AS SELECT StudentId, group_concat(Number) AS Numbers FROM Phone GROUP BY StudentId;
 
-drop table if exists School; 
-create table School (
-	SchoolId int not null auto_increment,
-	Name varchar(255) not null,
-	City varchar(255) not null,
-	primary key (SchoolId)
-);
-insert into School(Name, City) select distinct School as Name, City from UNF;
+DROP TABLE IF EXISTS School;
+CREATE TABLE School AS SELECT DISTINCT 0 As SchoolId, School As Name, City FROM UNF;
 
+SET @id = 0;
+UPDATE School SET SchoolId =  (SELECT @id := @id + 1);
+
+ALTER TABLE School ADD PRIMARY KEY(SchoolId);
+ALTER TABLE School MODIFY COLUMN SchoolId Int AUTO_INCREMENT;
 
 drop table if exists StudentSchool;
-create table StudentSchool as select Id as StudentId, SchoolId from UNF join School on UNF.School = School.Name; 
-alter table StudentSchool modify column StudentId INT;
-alter table StudentSchool add primary key (StudentId, SchoolId);
-SELECT StudentId, FirstName, LastName FROM Student
-JOIN StudentSchool USING (StudentId);
+CREATE TABLE StudentSchool AS SELECT DISTINCT UNF.Id AS StudentId, School.SchoolId
+FROM UNF INNER JOIN School ON UNF.School = School.Name;
+ALTER TABLE StudentSchool MODIFY COLUMN StudentId INT;
+ALTER TABLE StudentSchool MODIFY COLUMN SchoolId INT;
+ALTER TABLE StudentSchool ADD PRIMARY KEY(StudentId, SchoolId);
+
 
 drop view if exists SchoolList;
 CREATE VIEW SchoolList AS
